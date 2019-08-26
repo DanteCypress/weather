@@ -3,6 +3,8 @@ const card = document.querySelector(".card");
 const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
+// const button = document.querySelector(".fButton");
+const button1 = document.querySelector("button:nth-child(2)");
 
 const updateUI = data => {
   const { cityDetails, weather } = data;
@@ -19,23 +21,35 @@ const updateUI = data => {
     </div>`;
   console.log(data);
   console.log(weather.IsDayTime);
+  console.log(button1);
 
-  // details.addEventListener("click", e => {
-  //   e.preventDefault();
-  //   newFloat = weather.Temperature.Metric.Value * 1.8 + 32;
-  //   console.log(newFloat);
-  //   finalFloat = newFloat.toFixed(1);
+  button1.addEventListener("click", () => {
+    console.log("hello");
+    details.innerHTML = `<button id="fButton" type="button" class="btn btn-secondary">F</button>
+      <button id="cButton" type="button" class="btn btn-secondary">C</button>
+      <h5 class="my-3">${cityDetails.EnglishName}</h5>
+      <div class="my-3">${weather.WeatherText}</div>
+      <div class="display-4 my-4">
+      <span>${weather.Temperature.Metric.Value}</span>
+      <span>&deg;</span>
+    </div>`;
+  });
 
-  //   details.innerHTML = `<button id="fButton" type="button" class="btn btn-secondary">F</button>
-  //   <button id="cButton" type="button" class="btn btn-secondary">C</button>
-  //   <h5 class="my-3">${cityDets.EnglishName}</h5>
-  //   <div class="my-3">${weather.WeatherText}</div>
-  //   <div class="display-4 my-4">`;
-  //   if (details.classList.contains("fButton")) {
-  //     `<span>${finalFloat}</span>`;
-  //   }
-  //   console.log("hello");
-  // });
+  fButton.addEventListener("click", () => {
+    // newFloat = weather.Temperature.Metric.Value * 1.8 + 32;
+    // console.log(newFloat);
+    // finalFloat = newFloat.toFixed(1);
+
+    details.innerHTML = `<button id="fButton" type="button" class="btn btn-secondary">F</button>
+      <button id="cButton" type="button" class="btn btn-secondary">C</button>
+      <h5 class="my-3">${cityDetails.EnglishName}</h5>
+      <div class="my-3">${weather.WeatherText}</div>
+      <div class="display-4 my-4">
+      <span>${weather.Temperature.Imperial.Value}</span>
+      <span>&deg;</span>
+    </div>`;
+  });
+
   // day or night cycle
   const iconScr = `images/icons/${weather.WeatherIcon}.svg`;
   icon.setAttribute("src", iconScr);
