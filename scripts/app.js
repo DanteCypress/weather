@@ -5,6 +5,7 @@ const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
 // const button = document.querySelector(".fButton");
 const button1 = document.querySelector("button:nth-child(2)");
+const forecast = new Forecast();
 
 const updateUI = data => {
   const { cityDetails, weather } = data;
@@ -72,15 +73,6 @@ const updateUI = data => {
 
 //convert C to F
 
-const updateCity = async city => {
-  const cityDetails = await getCity(city);
-  const weather = await getWeather(cityDetails.Key);
-
-  return {
-    cityDetails: cityDetails,
-    weather: weather
-  };
-};
 cityForm.addEventListener("submit", e => {
   e.preventDefault();
   //getting city value
@@ -88,7 +80,8 @@ cityForm.addEventListener("submit", e => {
   cityForm.reset();
 
   //update the ui with new city
-  updateCity(city)
+  forecast
+    .updateCity(city)
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 
@@ -97,5 +90,7 @@ cityForm.addEventListener("submit", e => {
 });
 
 if (localStorage.getItem("city")) {
-  updateCity(localStorage.getItem("city")).then(data => updateUI(data));
+  forecast
+    .updateCity(localStorage.getItem("city"))
+    .then(data => updateUI(data));
 }
